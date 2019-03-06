@@ -7,24 +7,11 @@ RUN set -eux; \
     groupadd -r tox --gid=999; \
     useradd -m -r -g tox --uid=999 tox;
 
-# Install gosu to run tox as the "tox" user instead of as root.
-# https://github.com/tianon/gosu#from-debian
-RUN set -eux; \
-    apt-get update; \
-    apt-get install --no-install-recommends -y gosu; \
-    apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
+ENV PYENV_VERSION="3.7.2"
 
-RUN set -eux; \
-    pyenv local 3.7.2; \
-    python -m pip --no-cache-dir install pip==19.0.3; \
-    python -m pip --no-cache-dir install tox==3.7.0 tox-pyenv==1.1.0; \
-    pyenv local --unset; \
-    pyenv rehash;
+ENV PYTHON_PIP_VERSION="19.0.3"
+RUN python -m pip --no-cache-dir install pip==$PYTHON_PIP_VERSION
 
-WORKDIR /app
-VOLUME /src
-
-COPY docker-entrypoint.sh /
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["tox"]
+ENV PYTHON_TOX_VERSION="3.7.0"
+ENV PYTHON_TOX_PYENV_VERSION="1.1.0"
+RUN python -m pip --no-cache-dir install tox==$PYTHON_TOX_VERSION tox-pyenv==$PYTHON_TOX_PYENV_VERSION
