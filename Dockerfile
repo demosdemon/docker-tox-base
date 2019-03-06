@@ -7,7 +7,7 @@ RUN groupadd -r tox --gid=999 && \
 
 # Install gosu to run tox as the "tox" user instead of as root.
 # https://github.com/tianon/gosu#from-debian
-ENV GOSU_VERSION 1.10
+ENV GOSU_VERSION 1.11
 RUN set -x && \
     apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* && \
     dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
