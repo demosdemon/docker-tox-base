@@ -3,10 +3,6 @@ FROM demosdemon/pyenv
 LABEL author="Matthew Tardiff <mattrix@gmail.com>"
 LABEL maintainer="Brandon LeBlanc <brandon@leblanc.codes>"
 
-RUN set -eux; \
-    groupadd -r tox --gid=999; \
-    useradd -m -r -g tox --uid=999 tox;
-
 ENV PYENV_VERSION="3.7.2"
 
 ENV PYTHON_PIP_VERSION="19.0.3"
